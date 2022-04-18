@@ -1,0 +1,6 @@
+<div>
+  {{ projects.length }}
+</div>
+<div *ngIf="projects$ | async as items">
+  {{ items.length }}
+</div>
