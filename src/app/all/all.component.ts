@@ -13,6 +13,6 @@ export class AllComponent implements OnInit {
   projects: Project[] = [];
 
   ngOnInit(): void {
-    this.api.getProject$().subscribe((result) => (this.projects = result));
+    this.api.getProject().subscribe((result) => (this.projects = result));
   }
 }

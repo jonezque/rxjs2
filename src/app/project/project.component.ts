@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -12,6 +12,6 @@ export class ProjectComponent {
   constructor(private api: ApiService, private router: ActivatedRoute) {}
   project$ = this.router.paramMap.pipe(
     map((x) => x.get('id')),
-    mergeMap((id) => this.api.getById(id))
+    switchMap((id) => this.api.getById(id))
   );
 }

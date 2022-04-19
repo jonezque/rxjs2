@@ -11,7 +11,7 @@ const URL = 'http://localhost:3000/api/';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getProject$() {
+  getProject() {
     return this.http
       .get<Project[]>(URL + 'projects')
       .pipe(shareReplay(1, 10000));

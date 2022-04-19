@@ -4,8 +4,9 @@ import {
   debounceTime,
   filter,
   tap,
-  mergeMap,
+  switchMap,
   startWith,
+  distinctUntilChanged,
 } from 'rxjs';
 import { ApiFakeService } from '../api-fake.service';
 
@@ -19,15 +20,16 @@ export class SearchComponent {
   form = new FormGroup({ search: this.search });
   loading$ = this.api.loading$;
   error$ = this.api.error$;
-  projects$ = this.getProjects$();
+  projects$ = this.getProjects();
 
-  getProjects$() {
+  getProjects() {
     return this.search.valueChanges.pipe(
       startWith(this.search.value),
       filter(Boolean),
       debounceTime(600),
+      distinctUntilChanged(),
       tap((search) => console.log(search)),
-      mergeMap((search) => this.api.getProjects$(search))
+      switchMap((search) => this.api.getProjects(search))
     );
   }
 
@@ -35,6 +37,6 @@ export class SearchComponent {
 
   refresh() {
     this.api.reset();
-    this.projects$ = this.getProjects$();
+    this.projects$ = this.getProjects();
   }
 }

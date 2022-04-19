@@ -9,7 +9,10 @@ import { AllComponent } from './all/all.component';
 import { ProjectComponent } from './project/project.component';
 import { SearchComponent } from './search/search.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { BehaviorSubject, Subject } from 'rxjs';
+const s = new Subject<number>();
+s.next(1);
+s.subscribe((x) => console.log(x));
 @NgModule({
   declarations: [
     AppComponent,

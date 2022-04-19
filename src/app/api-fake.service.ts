@@ -44,7 +44,7 @@ const data = [
   },
 ];
 
-const CACHE_TIME = 1000 * 60 * 5
+const CACHE_TIME = 1000 * 60 * 5;
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +55,7 @@ export class ApiFakeService {
   private map: Map<string, Observable<Project[]>> = new Map();
   constructor() {}
 
-  private fetchData$(search: string) {
+  private fetchData(search: string) {
     return of(data.filter((x) => x.name.includes(search))).pipe(
       tap(() => console.log('requesting...')),
       delay(3000),
@@ -70,10 +70,10 @@ export class ApiFakeService {
     );
   }
 
-  getProjects$(search: string) {
+  getProjects(search: string) {
     const obs$ =
       this.map.get(search) ??
-      this.fetchData$(search).pipe(
+      this.fetchData(search).pipe(
         retry(3),
         catchError((e) => {
           console.log('get error', e.message);
